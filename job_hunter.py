@@ -2,14 +2,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
-import requests
-from fuzzywuzzy import process
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from tqdm import tqdm
-import joblib
-import time
 
 st.set_page_config(layout="wide")
 
