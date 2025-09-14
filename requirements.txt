@@ -1,18 +1,4 @@
-# Core
 streamlit==1.36.0
 pandas==2.2.2
 numpy==1.26.4
 matplotlib==3.8.4
-
-# ML & utils
-scikit-learn==1.4.2
-joblib==1.4.2
-tqdm==4.66.4
-
-# Text matching
-fuzzywuzzy==0.18.0
-python-Levenshtein==0.25.1
-
-# IO / file formats
-requests==2.32.3
-pyarrow==15.0.2 
