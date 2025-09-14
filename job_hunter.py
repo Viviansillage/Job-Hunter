@@ -117,7 +117,7 @@ Ranking for the recommendation of the firm is allocated categories v, x, and o, 
 
     st.divider()
 
-    st.markdown("## What is Glassdoor")
+    st.markdown("## What Glassdoor is")
     st.markdown("""
 **Glassdoor** is a career community and recruiting platform centered on **anonymous employee reviews**.
 You can browse overall company ratings, dimension-level sentiment (work–life balance, compensation & benefits,
@@ -128,7 +128,7 @@ Official site: <https://www.glassdoor.com>
 
     st.divider()
 
-    st.markdown("## What can you get from us")
+    st.markdown("## What you can get from us")
     st.markdown("""
 This app lets you tailor your view of the job market with **personalized filters** across firm, date range, employment status, overall rating, and dimension ratings (work–life balance, career opportunities, compensation & benefits). Your selections are transformed into **clear visual insights**—from distribution snapshots to top-firm comparisons and dimension-level averages—so you can quickly read current sentiment and differences across firms and industries, then use those signals to **plan your next steps** with greater confidence. Our aim is to make data more visual, search more efficient, and decisions more evidence-based.
     """)
