@@ -3,7 +3,6 @@ streamlit==1.36.0
 pandas==2.2.2
 numpy==1.26.4
 matplotlib==3.8.4
-seaborn==0.13.2  # 如不使用，可删掉本行和代码中的 import
 
 # ML & utils
 scikit-learn==1.4.2
