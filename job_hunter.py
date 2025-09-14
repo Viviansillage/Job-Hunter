@@ -13,8 +13,8 @@ def load_data():
     return pd.read_csv(
         "data/glassdoor_reviews.csv.gz",
         usecols=usecols,
-        parse_dates=["date_review"],   # 直接把日期解析好
-        compression="infer"            # 自动识别 .gz
+        parse_dates=["date_review"],
+        compression="infer"
     )
 
 # =============== Helpers used across pages ===============
