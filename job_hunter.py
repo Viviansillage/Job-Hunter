@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from pathlib import Path
+
 
 st.set_page_config(layout="wide")
 
@@ -10,76 +10,12 @@ st.set_page_config(layout="wide")
 def load_data():
     usecols = ["firm","date_review","current","overall_rating",
                "work_life_balance","career_opp","comp_benefits","recommend"]
-
-    base = Path(__file__).parent / "data"
-    candidates = [
-        base / "glassdoor_reviews.parquet",
-        base / "glassdoor_reviews.csv.gz",
-        base / "glassdoor_reviews.csv.zip",
-        base / "glassdoor_reviews.zip",
-        base / "glassdoor_reviews.csv",
-    ]
-
-    df = None
-    for p in candidates:
-        if p.exists():
-            if p.suffix == ".parquet":
-                df = pd.read_parquet(p, columns=usecols)
-            else:
-                df = pd.read_csv(
-                    p,
-                    usecols=usecols,
-                    parse_dates=["date_review"],
-                    compression="infer"
-                )
-            break
-
-    if df is None:
-        up = st.file_uploader("Upload glassdoor_reviews (.csv / .csv.gz / .csv.zip / .parquet)",
-                              type=["csv","gz","zip","parquet"])
-        if up is None:
-            st.info("Please upload the dataset to proceed.")
-            st.stop()
-        if up.name.endswith(".parquet"):
-            df = pd.read_parquet(up, columns=usecols)
-        else:
-            df = pd.read_csv(up, usecols=usecols, parse_dates=["date_review"], compression="infer")
-
-    # Normalize/alias just in case column variations appear
-    df.columns = (df.columns.str.strip()
-                           .str.lower()
-                           .str.replace(r"[^a-z0-9]+", "_", regex=True))
-    alias = {
-        "firm": ["firm","company","company_name"],
-        "date_review": ["date_review","review_date","date"],
-        "current": ["current","is_current","currently_employed"],
-        "overall_rating": ["overall_rating","overall","rating"],
-        "work_life_balance": ["work_life_balance","wrok_life_balance","wlb","worklife_balance"],
-        "career_opp": ["career_opp","career_opportunities","career"],
-        "comp_benefits": ["comp_benefits","compensation_and_benefits","benefits","compensation"],
-        "recommend": ["recommend","recommendation","recommend_company","recommend_firm",
-                      "recommend_to_friend","recommendation_category"],
-    }
-    rename_map = {}
-    for tgt, cands in alias.items():
-        for c in cands:
-            if c in df.columns:
-                rename_map[c] = tgt
-                break
-    if rename_map:
-        df = df.rename(columns=rename_map)
-
-    # Ensure all 8 columns exist (avoid KeyError downstream)
-    for c in usecols:
-        if c not in df.columns:
-            df[c] = pd.NA
-
-    # Types
-    df["date_review"] = pd.to_datetime(df["date_review"], errors="coerce")
-    for c in ["overall_rating","work_life_balance","career_opp","comp_benefits"]:
-        df[c] = pd.to_numeric(df[c], errors="coerce")
-
-    return df[usecols]
+    return pd.read_csv(
+        "data/glassdoor_reviews.csv.gz",
+        usecols=usecols,
+        parse_dates=["date_review"],   # 直接把日期解析好
+        compression="infer"            # 自动识别 .gz
+    )
 
 # =============== Helpers used across pages ===============
 DISPLAY_MAP = {
